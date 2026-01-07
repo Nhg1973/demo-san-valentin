@@ -5,7 +5,7 @@ import { QuestConfig, AppState } from './types';
 import CreatorView from './components/CreatorView';
 import PlayerView from './components/PlayerView';
 import VictoryView from './components/VictoryView';
-import { Sparkles, Lock, Settings, CheckCircle, Copy, X, Globe, LayoutDashboard } from 'lucide-react';
+import { Sparkles, Lock, Settings, CheckCircle, Copy, X, Globe, LayoutDashboard, Link as LinkIcon, ExternalLink } from 'lucide-react';
 
 const App: React.FC = () => {
   const [state, setState] = useState<AppState>({
@@ -134,31 +134,55 @@ const App: React.FC = () => {
         <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[200] animate-bounce">
           <div className="bg-rose-600 text-white px-8 py-3 rounded-full shadow-2xl flex items-center gap-3 border-2 border-white">
             <CheckCircle size={18} />
-            <span className="font-bold text-xs uppercase tracking-widest">Enlace Listo</span>
+            <span className="font-bold text-xs uppercase tracking-widest">Enlace Copiado</span>
           </div>
         </div>
       )}
 
       {generatedLink && (
-        <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
-          <div className="bg-white rounded-[3rem] shadow-2xl max-w-lg w-full p-8 space-y-6 animate-float relative border-8 border-rose-50">
-            <button onClick={() => setGeneratedLink(null)} className="absolute top-4 right-4 p-2 text-slate-300 hover:text-rose-500">
-              <X size={24} />
+        <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md px-6">
+          <div className="bg-white rounded-[3.5rem] shadow-2xl max-w-md w-full p-8 md:p-10 space-y-8 animate-float relative border-8 border-rose-50">
+            <button 
+              onClick={() => setGeneratedLink(null)} 
+              className="absolute top-6 right-6 p-2 text-slate-300 hover:text-rose-500 transition-colors"
+            >
+              <X size={28} />
             </button>
-            <div className="text-center space-y-2">
-              <div className="bg-rose-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Copy className="text-rose-600" size={30} />
+            
+            <div className="text-center space-y-4">
+              <div className="bg-rose-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-2 shadow-inner">
+                <LinkIcon className="text-rose-600" size={36} />
               </div>
-              <h3 className="text-2xl font-black text-slate-800 uppercase tracking-tight">¡Campaña Creada!</h3>
-              <p className="text-slate-500 text-sm">Tu demo comercial está lista para ser enviada.</p>
+              <div>
+                <h3 className="text-3xl font-black text-slate-800 uppercase tracking-tight leading-none">¡Enlace Listo!</h3>
+                <p className="text-slate-500 text-xs font-bold mt-2 uppercase tracking-widest">Compártelo con tu pareja</p>
+              </div>
             </div>
-            <div className="bg-rose-50 p-5 rounded-2xl border-2 border-rose-100 break-all text-center">
-              <p className="text-[10px] font-mono font-bold text-rose-900 uppercase tracking-widest mb-1">Tu Link Unico:</p>
-              <p className="text-xs font-mono text-rose-700 font-bold">{generatedLink}</p>
+
+            <div className="space-y-3">
+              <p className="text-[10px] font-black text-rose-400 uppercase tracking-[0.2em] ml-2">Vista previa del link:</p>
+              <div className="bg-rose-50 p-5 rounded-3xl border-2 border-rose-100 flex items-center gap-3 group hover:border-rose-300 transition-all overflow-hidden">
+                <div className="bg-white p-2 rounded-xl text-rose-500 shadow-sm shrink-0">
+                  <ExternalLink size={16} />
+                </div>
+                <p className="text-xs font-mono text-rose-700 font-bold truncate flex-1 select-all">
+                  {generatedLink}
+                </p>
+              </div>
             </div>
-            <button onClick={() => copyToClipboard(generatedLink)} className="w-full py-5 bg-rose-600 text-white font-black rounded-2xl shadow-xl hover:bg-rose-700 transition-all transform active:scale-95 text-lg">
-              COPIAR LINK COMERCIAL
-            </button>
+
+            <div className="space-y-4 pt-2">
+              <button 
+                onClick={() => copyToClipboard(generatedLink)} 
+                className="w-full py-6 bg-rose-600 text-white font-black rounded-[2rem] shadow-xl shadow-rose-200 hover:bg-rose-700 transition-all transform active:scale-95 text-lg flex items-center justify-center gap-3 border-b-4 border-rose-800"
+              >
+                <Copy size={22} /> COPIAR ENLACE
+              </button>
+              
+              <p className="text-center text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                El enlace contiene toda la configuración de tu aventura.
+              </p>
+            </div>
           </div>
         </div>
       )}
